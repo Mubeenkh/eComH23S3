@@ -30,7 +30,8 @@
 
 // get input data from the HTTP request
 // data sent through the GET method
-
+echo "GET DATA: <br>";
+echo "add '.../Intro2.php?name=SirMark' to the link up top <br><br>";
 if(isset($_GET['name']))
 	echo $_GET['name'],'<br>';
 
@@ -54,5 +55,5 @@ echo "</pre>";
 echo "REQUEST_METHOD:", $_SERVER['REQUEST_METHOD'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-	echo "THIS WAS SENT THROUGH THE HTTP HEADERS";
-}
+	echo " <br>THIS WAS SENT THROUGH THE HTTP HEADERS";
+} ?>
