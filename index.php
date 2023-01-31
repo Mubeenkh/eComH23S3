@@ -7,4 +7,5 @@ require_once 'app/core/init.php';
 // include can be less fatal
 // _once is to ensure thing only are included once
 
-new App;
+
+new app\core\App;
