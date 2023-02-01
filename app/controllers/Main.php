@@ -1,6 +1,5 @@
 <?php 
 namespace app\controllers;
-
 //name of this controller is Main,we wanna make sure Main calls the view class
 // which is why we extends Controller
 class Main extends \app\core\Controller{ 
@@ -17,6 +16,21 @@ class Main extends \app\core\Controller{
 	function greetings($name = "Sir Mark"){  //name is an optional parameter now
 		// echo " <br> <b> Aloha $name! </b>";
 		$this->view('Main/greetings',$name);
+	}
+
+	function logUser(){
+		if(isset($_POST['action'])){
+			//data is sent
+				//var_dump('$_POST');
+			//open the log.txt
+			$fh = fopen('log.txt', 'a'); //fh = file handle
+			fwrite($fh, "$_POST[name] has visited! \n");
+			fclose($fh);
+			header('location/Main/logUser');
+		}else{
+			//no data submitted: the user needs to see the form
+			$this->view('Main/logUser');
+		}
 	}
 
 }

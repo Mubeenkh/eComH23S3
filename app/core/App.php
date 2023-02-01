@@ -3,6 +3,7 @@ namespace app\core;
 
 class App
 {
+	//this entire function routed URL to a method call
 	function __construct()
 	{	
 		// echo 'The constructor for the App class has been called';
@@ -27,20 +28,20 @@ class App
 			// echo "the $request[0] controller exists";
 			$controller = $request[0];
 			
-			//TODO: remove the $request[0] element
+			//remove the $request[0] element
 			unset($request[0]); //remove first item from the array because we consumemed it
 
 		}
 
-		$controller = 'app\\controllers\\' . $controller;
-		//$controller = new Main();
-		$controller = new $controller;
+		$controller = 'app\\controllers\\' . $controller;  //app\controllers\Main
+		//$controller = new Main();	
+		$controller = new $controller; 						//creates a new inst. Main
 		
 		
 		if(isset($request[1]) && method_exists($controller, $request[1]))
 		{
 			$method = $request[1];
-			//TODO: remove the $request[1] element
+			//remove the $request[1] element
 			unset($request[1]);
 		}
 		
