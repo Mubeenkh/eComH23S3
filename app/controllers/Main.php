@@ -23,14 +23,34 @@ class Main extends \app\core\Controller{
 			//data is sent
 				//var_dump('$_POST');
 			//open the log.txt
-			$fh = fopen('log.txt', 'a'); //fh = file handle
-			fwrite($fh, "$_POST[name] has visited! \n");
-			fclose($fh);
-			header('location/Main/logUser');
+
+			$userLog = new \app\Models\UserLog();
+			$userLog->name = $_POST['name'];
+			$userLog->insert();
+
+			//content is now in the model
+			// $fh = fopen('log.txt', 'a'); //fh = file handle
+			// fwrite($fh, "$_POST[name] has visited! \n");
+			// fclose($fh);
+			header('location:/Main/logUser');
+
 		}else{
 			//no data submitted: the user needs to see the form
 			$this->view('Main/logUser');
 		}
+	}
+
+	function viewUserLog(){
+		$userLog = new \app\Models\UserLog();
+		$content = $userLog->getAll();
+		$this->view('Main/userLogList', $content); //call the view and pass the content
+	}
+
+	function logDelete($lineNumber){
+		$userLog = new \app\Models\UserLog();
+		$userLog->delete($lineNumber);
+		header('location:/Main/viewUserLog'); //redirect
+
 	}
 
 }
