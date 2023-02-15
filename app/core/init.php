@@ -1,5 +1,6 @@
 <?php
-// echo 'This is the init file';
+//creates a session identifie for every user 
+session_start();	
 
 // include 'app/core/App.php';
 // include 'app/core/Controller.php';
