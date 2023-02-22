@@ -54,8 +54,6 @@ class User extends \app\core\Controller{
 				header('location:/User/register?error=Username ' . $_POST['username'] . ' already in use. Choose another.');
 			}
 
-			
-
 		}else{
 			//display te form
 			$this->view('User/register'); //TODO: add the new view file
@@ -78,31 +76,5 @@ class User extends \app\core\Controller{
 		$this-> view('User/profile',$messages);
 	}
 
-	public function sendMessage(){
-		if(isset($_POST['action'])){
-			
-			$receiver = $_POST['receiver'] ?? ''; //if receiver doesnt exist then use empty string to avoid error messages
-			$user = new \app\Models\User();
-			$user = $user->getByUsername($receiver); //going to return a user record
-
-			if($user){
-				$message = new \app\Models\Message();
-				$message->receiver = $user->user_id;
-
-				//set FK to a PK value
-				$message->sender = $_SESSION['user_id'];
-				$message->message = $_POST['message'];
-				$message->insert();
-				
-			}else{
-				header('location:/User/profile?error=' . 
-					"$receiver is not a valid user. No message sent." );
-			}
-
-
-		}
-
-		header('location:/User/profile');
-		
-	}
+	
 }
