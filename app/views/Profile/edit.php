@@ -1,6 +1,6 @@
 <?php $this->view('shared/header','Edit Your Profile'); ?>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 	
 	<div class="form-group row">
 		<label class="col-sm-2 col-form-label">First Name:</label>
@@ -26,7 +26,12 @@
 		<br><br>
 	</div>
 
-	<input  type="submit" name="action" value="Save Changes">
+	<!-- Posting a picture -->
+	<label class="form-label">Profile Picture: </label>
+	<input type="file" name="profilePicture" class="form-control"></br>
+
+
+	<input  type="submit" name="action" value="Save Changes" class="btn btn-secondary">
 </form>
 
 	<a href="/Profile/index">Back</a>

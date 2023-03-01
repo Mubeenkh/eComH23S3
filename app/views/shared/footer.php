@@ -10,7 +10,9 @@
 			<li><a href="/User/profile">User Profile</a></li>
 
 		</ul>
+		
 	</div>
+<!-- </div> -->
 </body>
 
 </html>
