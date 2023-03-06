@@ -6,6 +6,7 @@ class ProfileInformation extends \app\core\Model{
 	public $first_name;
 	public $last_name;
 	public $middle_name;
+	public $picture;
 
 	public function getByUserId($user_id){
 		//: is a place holder
@@ -18,14 +19,18 @@ class ProfileInformation extends \app\core\Model{
 	}
 
 	public function insert(){
-		$SQL = "INSERT INTO profile_information(user_id,first_name,last_name,middle_name) 
-				VALUE (:user_id,:first_name,:last_name,:middle_name)";
+		$SQL = "INSERT INTO profile_information(user_id,first_name,last_name,middle_name, picture) 
+				VALUE (:user_id,:first_name,:last_name,:middle_name,:picture)";
+
 		$STH = $this->connection->prepare($SQL);
 
-		$data = ['user_id'=>$this->user_id,
-				'first_name' => $this->first_name,
-				'last_name' => $this->last_name,
-				'middle_name' => $this->middle_name];
+		$data = [
+			'user_id'=>$this->user_id,
+			'first_name' => $this->first_name,
+			'last_name' => $this->last_name,
+			'middle_name' => $this->middle_name,
+			'picture'=> $this->picture	
+		];
 
 		$STH->execute( $data );
 		return $STH->rowCount();
@@ -35,15 +40,18 @@ class ProfileInformation extends \app\core\Model{
 		//modify object without changing the user_id
 
 		$SQL = "UPDATE `profile_information` 
-				SET `first_name`=:first_name, `last_name`=:last_name, `middle_name`=:middle_name 
+				SET `first_name`=:first_name, `last_name`=:last_name, `middle_name`=:middle_name, `picture`=:picture 
 				WHERE user_id=:user_id";
 
 		$STH = $this->connection->prepare($SQL);
 
-		$data = ['user_id'=>$this->user_id,
-				'first_name' => $this->first_name,
-				'last_name' => $this->last_name,
-				'middle_name' => $this->middle_name];
+		$data = [
+			'user_id'=>$this->user_id,
+			'first_name' => $this->first_name,
+			'last_name' => $this->last_name,
+			'middle_name' => $this->middle_name,
+			'picture'=>$this->picture
+		];
 
 		$STH->execute( $data );
 		return $STH->rowCount();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2023 at 06:10 PM
+-- Generation Time: Mar 05, 2023 at 07:30 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -80,15 +80,16 @@ CREATE TABLE `profile_information` (
   `user_id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `middle_name` varchar(50) NOT NULL
+  `middle_name` varchar(50) NOT NULL,
+  `picture` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `profile_information`
 --
 
-INSERT INTO `profile_information` (`user_id`, `first_name`, `last_name`, `middle_name`) VALUES
-(12, 'Mubeen', '', 'Khan');
+INSERT INTO `profile_information` (`user_id`, `first_name`, `last_name`, `middle_name`, `picture`) VALUES
+(12, 'Mubeen', '', 'Khan', '');
 
 -- --------------------------------------------------------
 

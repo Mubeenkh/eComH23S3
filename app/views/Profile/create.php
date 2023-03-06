@@ -1,6 +1,6 @@
 <?php $this->view('shared/header','Create Your Profile'); ?>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 	
 	<div class="form-group row">
 		<label class="col-sm-2 col-form-label">First Name:</label>
@@ -25,6 +25,12 @@
 		</div>
 		<br>
 	</div>
+
+
+	<label>Profile Picture:</label><br>
+    <input type="file" name="profilePicture"><br>
+
+	
 
 	<input  type="submit" name="action" value="Create profile">
 </form>
