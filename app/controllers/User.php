@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 
+// These are all class Attributes. They are defined on top of the class
+
 class User extends \app\core\Controller{
 	
 	public function index(){  //login page
@@ -65,15 +67,25 @@ class User extends \app\core\Controller{
 		header('location:/User/index');
 	}
 
+
+	//this is replacing the if statement.
+	//its a path to the login class
+	#[\app\filters\Login]
 	public function profile(){
-		//users "Secure place"
-		if(!isset($_SESSION['user_id'])){
-			header('location:/User/index');
-			return;	//to make sure they dont get access to what comes after this if
-		}
+		//users "Secure place", 
+		//If user is mot loged in, it will not run the rest of the code****
+		// if(!isset($_SESSION['user_id'])){
+		// 	header('location:/User/index');
+		// 	return;	//to make sure they dont get access to what comes after this if
+		// }
 		$message = new \app\Models\Message();
 		$messages = $message->getAllForUser($_SESSION['user_id']);
 		$this-> view('User/profile',$messages);
+	}
+
+	#[\app\filters\Login]
+	public function somethingSecret(){
+		echo "If you see this, you are logged in";
 	}
 
 	

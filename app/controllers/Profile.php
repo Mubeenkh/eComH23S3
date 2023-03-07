@@ -176,7 +176,7 @@ class Profile extends \app\core\Controller{
 
                 $uploadedFile["target_file"] = $targetFileName;
 
-                return  $uploadedFile;
+                return $uploadedFile;
 
 
             }

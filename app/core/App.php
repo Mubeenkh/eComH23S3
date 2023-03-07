@@ -1,6 +1,6 @@
 <?php
 namespace app\core;
-
+//this class does all the routing for the site
 class App
 {
 	//this entire function routed URL to a method call
@@ -50,10 +50,52 @@ class App
 		//$controller->index(); 
 		//$controller->$method();
 		
-		//TODO: improve this to include parameters
+		/////// 1 start Access filtering ///////
+		//this is the right place for access filtering
+		if($this->filter($controller,$method,$params)){
+			return;	//deny access to the method call
+		}
+
+		/////// 1 end Access filtering ///////
+
 		// call_user_func_array(): Call the controller method with parameter
 		call_user_func_array([$controller, $method], $params);
 	}
+
+	/////// 2 start Access filtering ///////
+	public function filter($controller,$method,$params){
+		//we want to read the class methods and attributes
+			//we have to build a Reflection object to read the methods, properties, attributes
+		$reflection = new \ReflectionObject($controller);		// you need to pass an object tp ReflectionObject 
+		$classAttributes = $reflection->getAttributes(
+
+			\app\core\AccessFilter::class,
+			\ReflectionAttribute::IS_INSTANCEOF
+
+		);
+
+		$methodAttributes = $reflection->getMethod($method)->getAttributes(
+
+			\app\core\AccessFilter::class,
+			\ReflectionAttribute::IS_INSTANCEOF
+
+		);	//we get the methods and read its attributes
+
+		$attributes = array_values(array_merge($classAttributes, $methodAttributes)); 	//array_values makes sures you dont include null values
+		//putting all the attributes in one single list
+		foreach ($attributes as $attribute) {
+			//i have to take that attribute, get the instance of the class (object), and use that instance
+			$filter = $attribute->newInstance(); //making a new instance of this class and same it filter
+			
+			//filter has a function called execute
+			if ($filter->execute()) {
+				return true;
+			}
+		}
+		return false;
+
+	}
+	/////// 2 start Access filtering ///////
 
 	function parseURL($url)
 	{

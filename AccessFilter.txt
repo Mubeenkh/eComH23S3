@@ -1,0 +1,28 @@
+
+DRY principle: Write code once and use it multiple times
+
+Metadata: Attributes
+
+<html>
+	<head> <title></title> </head>
+	<body> </body>
+
+</html>
+
+	Classes have:
+		-properties
+		-methods
+		-metadata: information about the class, their properties, methods, contants, parameters. Ex: html file is a metadata
+
+	metadata can be:
+		-comments
+		-DocComments:
+
+	metadata does not affect how the code runs
+
+Reflection objects:
+	-things that are able to look/read the entire definition of a class and its data
+
+
+...back to Access filtering:
+usinf Attribures, we will define metadata criteria on Controller classes and their method.
