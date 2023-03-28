@@ -12,7 +12,7 @@ class ProfileInformation extends \app\core\Model{
 		//: is a place holder
 		$SQL = "SELECT * FROM profile_information 
 				WHERE user_id=:user_id";
-		$STH = $this->connection->prepare($SQL);
+		$STH = self::$connection->prepare($SQL);
 		$STH->execute( ['user_id' => $user_id] );
 		$STH->setFetchMode(\PDO::FETCH_CLASS,'app\\Models\\ProfileInformation');
 		return $STH->fetch();
@@ -22,7 +22,7 @@ class ProfileInformation extends \app\core\Model{
 		$SQL = "INSERT INTO profile_information(user_id,first_name,last_name,middle_name, picture) 
 				VALUE (:user_id,:first_name,:last_name,:middle_name,:picture)";
 
-		$STH = $this->connection->prepare($SQL);
+		$STH = self::$connection->prepare($SQL);
 
 		$data = [
 			'user_id'=>$this->user_id,
@@ -43,7 +43,7 @@ class ProfileInformation extends \app\core\Model{
 				SET `first_name`=:first_name, `last_name`=:last_name, `middle_name`=:middle_name, `picture`=:picture 
 				WHERE user_id=:user_id";
 
-		$STH = $this->connection->prepare($SQL);
+		$STH = self::$connection->prepare($SQL);
 
 		$data = [
 			'user_id'=>$this->user_id,
