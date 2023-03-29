@@ -1,6 +1,6 @@
 <?php
 // Entry point to the Application
-// Includethe dependencies
+// Include the dependencies
 require_once 'app/core/init.php';
 // To include external files in PHP we can: include, include_once, require, and require_once
 // require is for stuff you need

@@ -7,3 +7,4 @@ session_start();
 // include 'app/controllers/Main.php';
 
 include 'app/core/autoload.php';
+include 'vendor/autoload.php';
