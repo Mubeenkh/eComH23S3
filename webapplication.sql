@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2023 at 07:30 PM
+-- Generation Time: Apr 04, 2023 at 05:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -67,7 +67,8 @@ INSERT INTO `message` (`message_id`, `sender`, `receiver`, `message`, `timestamp
 (2, 12, 11, 'Bananas2', '2023-02-21 16:28:16'),
 (3, 12, 11, 'I hope this message thingy works', '2023-02-22 14:00:05'),
 (4, 12, 13, 'testing', '2023-02-22 14:00:49'),
-(5, 12, 13, 'is this working', '2023-02-22 17:02:33');
+(5, 12, 13, 'is this working', '2023-02-22 17:02:33'),
+(6, 12, 13, 'We love roblox', '2023-03-28 15:46:27');
 
 -- --------------------------------------------------------
 
@@ -158,7 +159,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`

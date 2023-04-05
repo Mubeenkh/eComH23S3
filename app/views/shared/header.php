@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html>
+<!-- Internationalization -->
+<!-- ltr = allow you to do left to right translation (example arabic) -->
+
+<html dir="<?=_('ltr') ?>" lang="<?= _('en') ?>">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">

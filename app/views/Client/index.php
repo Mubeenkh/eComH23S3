@@ -1,6 +1,6 @@
 <?php $this->view('shared/header',_('List of Clients')); ?>
 
-<a href="/Client/create"> <?= _('Create a new client') ?> </a>
+<a href="/Client/create"> <?= _('Create a new client record') ?> </a>
 
 <table>
 	<!-- th = table heading -->
@@ -13,7 +13,12 @@
 			<td><?= htmlentities($client->first_name) ?></td> 
 			<td><?= htmlentities($client->last_name) ?></td> 
 			<td><?= htmlentities($client->middle_name) ?></td> 
-			<td><a href='/Client/delete/<?=$client->client_id?>'><?= _('delete') ?></a></td>
+			<td>
+				<a href='/Client/delete/<?=$client->client_id?>'><?= _('delete') ?></a> | 
+				<a href='/Client/edit/<?=$client->client_id?>'><?= _('edit') ?></a> | 
+				<!-- pass client id to the service/index so that you nly see that one clients records -->
+				<a href='/Service/index/<?=$client->client_id?>'><?= _('service') ?></a>
+			</td>
 		</tr>
 		
 <?php
