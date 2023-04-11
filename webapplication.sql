@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2023 at 05:21 PM
+-- Generation Time: Apr 11, 2023 at 05:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -95,6 +95,29 @@ INSERT INTO `profile_information` (`user_id`, `first_name`, `last_name`, `middle
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+CREATE TABLE `service` (
+  `service_id` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `datetime` datetime NOT NULL,
+  `client_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`service_id`, `description`, `datetime`, `client_id`) VALUES
+(1, 'BOBA COLA', '2023-04-12 11:54:00', 1),
+(2, 'wgwjpojpwo', '2023-04-11 10:26:00', 1),
+(3, '10:58am', '2023-04-11 14:58:20', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -139,6 +162,13 @@ ALTER TABLE `profile_information`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`service_id`),
+  ADD KEY `service_to_client` (`client_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -162,6 +192,12 @@ ALTER TABLE `message`
   MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `service`
+--
+ALTER TABLE `service`
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
@@ -183,6 +219,12 @@ ALTER TABLE `message`
 --
 ALTER TABLE `profile_information`
   ADD CONSTRAINT `profile_to_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `service`
+--
+ALTER TABLE `service`
+  ADD CONSTRAINT `service_to_client` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,18 +3,18 @@ namespace app\controllers;
 
 // use DateTime;
 // use IntlDateFormatter;
-// use \app\core\TimeHelper;
+use \app\core\TimeHelper; 
+	// is meant to simplify your code, you dont have to write /app/core/TimeHelper::
+	// instead i can just write TimeHelper::
 
 class Service extends \app\core\Controller{
 
 	// index has client id because on the client index view, we are passing and ID to the hyperlink for service
-	public function index($client_id){	//parent id
-
+	public function index($client_id){//parent id
 		$client = new \app\Models\Client();
 		$client = $client->get($client_id);
-		//plan: get the service record from the client model
+		//plan: get the service records form the client model
 		$this->view('Service/index', $client);
-
 	}
 
 	public function create($client_id){  //parent id
@@ -27,7 +27,7 @@ class Service extends \app\core\Controller{
 			//Populate the service
 			// /htmlentities() filters out harmful inputs for the system
 			$service->description = htmlentities($_POST['description']);
-			$service->datetime = $_POST['datetime'];
+			$service->datetime = TimeHelper::DTInput($_POST['datetime']); //now date time should be set at UTC
 			$service->client_id = $client_id;
 
 			//Invoke the insert method
@@ -49,7 +49,7 @@ class Service extends \app\core\Controller{
 	public function delete($service_id){
 
 		$service = new \app\Models\Service();
-		$service->get($service_id);
+		$service = $service->get($service_id);
 		// $client = $service->getClient();  //We will do this in the view
 
 		if(isset($_POST['action'])){
@@ -66,27 +66,27 @@ class Service extends \app\core\Controller{
 			
 	}
 
-	public function edit($servicservicee_id){
+	public function edit($service_id){
 		//modify a Service record
-		$service = new \app\models\Service();
+		$service = new \app\Models\Service();
 		$service = $service->get($service_id);
 
 
 		if(isset($_POST['action'])){
 
 			// save the data
-			$service->description = $_POST['description'];
-			$service->datetime = $_POST['datetime'];
+			$service->description = htmlentities($_POST['description']);
+			$service->datetime = TimeHelper::DTInput($_POST['datetime']);
 			//we dont change key values ($client_id) which is a FK
 
 			//save the change to the databse
 			$service->update();
 			$client_id = $service->client_id;
-			header('location:/Service/index' . $client_id);
+			header('location:/Service/index/' . $client_id);
 
 		}else{
 
-			$this->view('Service/edit',$client);
+			$this->view('Service/edit',$service);
 
 		}
 	}
