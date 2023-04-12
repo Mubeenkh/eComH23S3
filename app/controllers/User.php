@@ -70,6 +70,7 @@ class User extends \app\core\Controller{
 
 	//this is replacing the if statement.
 	//its a path to the login class
+	
 	#[\app\filters\Login]
 	public function profile(){
 		//users "Secure place", 

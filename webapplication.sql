@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2023 at 05:51 PM
+-- Generation Time: Apr 12, 2023 at 05:35 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -111,9 +111,12 @@ CREATE TABLE `service` (
 --
 
 INSERT INTO `service` (`service_id`, `description`, `datetime`, `client_id`) VALUES
-(1, 'BOBA COLA', '2023-04-12 11:54:00', 1),
-(2, 'wgwjpojpwo', '2023-04-11 10:26:00', 1),
-(3, '10:58am', '2023-04-11 14:58:20', 1);
+(1, ' BOBA COLA ', '2023-04-12 11:54:00', 1),
+(3, '10:58am', '2023-04-11 14:58:20', 1),
+(4, 'testing validation', '2023-04-12 14:15:00', 1),
+(7, 'rqrqerqre', '0000-00-00 00:00:00', 1),
+(8, '', '2023-04-12 14:41:20', 1),
+(9, 'thrthrh', '2023-04-12 14:51:00', 1);
 
 -- --------------------------------------------------------
 
@@ -195,7 +198,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`

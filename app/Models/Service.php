@@ -1,13 +1,38 @@
 <?php 
 namespace app\Models;
 
+use app\core\TimeHelper;
+
 class Service extends \app\core\Model{
+	//
 	public $service_id;
-	public $description;
-	public $datetime;
+
+	#[\app\validators\NonNull]
+	#[\app\validators\NonEmpty]
+	protected $description; //NonEmpty is a attribute
+
+	#[\app\validators\NonNull]
+	#[\app\validators\DateTime]
+	protected $datetime; //protected instead of public to force the execution of __set (and __get) in Model
 	public $client_id;
 
-	public function insert(){
+	protected function setdatetime($value){
+		//You are trying to replace the following located in the Service controller $service->datetime = TimeHelper::DTInput($_POST['datetime']);
+		
+		//on setting, change the timezone
+		$this->datetime = TimeHelper::DTInput($value);
+	}
+
+	protected function setdescription($value){
+		$this->description = htmlentities($value, ENT_QUOTES); 
+		//htmlentities() avoids crosss sight scripting
+		//XSS: cross sight scripting
+		//		its when you take javascript and put it into the input
+		//		which will mess up your code/website 
+	}
+
+	// V1. theres methods are protected to force the execution og __call in Model
+	protected function insert(){
 		$SQL = "INSERT INTO service (description, datetime, client_id) value (:description, :datetime, :client_id)";
 
 		$STH = self::$connection->prepare($SQL);
@@ -21,8 +46,8 @@ class Service extends \app\core\Model{
 		$this->service_id = self::$connection->lastInsertId();
 	}
 
-	public function update(){
-		$SQL = "UPDATE service SET description=:description, datetime=:datetime WHERE client_id=:client_id";
+	protected function update(){
+		$SQL = "UPDATE service SET description=:description, datetime=:datetime WHERE service_id=:service_id";
 		$STH = self::$connection->prepare($SQL);
 		//basically inserting the values into the database
 		$data = [
@@ -36,10 +61,10 @@ class Service extends \app\core\Model{
 	}
 
 
-	public function delete($client_id){	//delete a client
+	public function delete(){	
 		$SQL = "DELETE FROM service WHERE service_id=:service_id"; 
 		$STH = self::$connection->prepare($SQL);
-		$data = ['service_id' => $service_id];  
+		$data = ['service_id' => $this->service_id];  
 
 		$STH->execute($data); 
 		return $STH->rowCount();

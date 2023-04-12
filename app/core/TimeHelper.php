@@ -4,6 +4,7 @@ namespace app\core;
 use IntlDateFormatter;
 use DateTimeZone;
 use DateTime;
+use Exception;
 
 
 class TimeHelper {
@@ -46,14 +47,19 @@ class TimeHelper {
 	//from TZ to UTC
 	public static function DTInput($s_datetime){
 		//create a datetime object in the local timezone
-		global $tz; //imports $tz here
-		$datetime = new DateTime($_datetime, new DateTimeZone($tz));
 
-		//change the timezone
-		$datetime->setTimezone(new DateTimeZone('UTC')); 
+		try {
+			global $tz; //imports $tz here
+			$datetime = new DateTime($s_datetime, new DateTimeZone($tz));
 
-		//output to a standard string format
-		return $datetime->format('Y-m-d H:i:s'); //this will output the datetime to a string depending on the format we give it
+			//change the timezone
+			$datetime->setTimezone(new DateTimeZone('UTC')); 
+
+			//output to a standard string format
+			return $datetime->format('Y-m-d H:i:s'); //this will output the datetime to a string depending on the format we give it
+		} catch (Exception $e) {
+			return '';
+		}
 	}
 
 	//from UTC to TZ

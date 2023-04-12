@@ -8,4 +8,17 @@ require_once 'app/core/init.php';
 // _once is to ensure thing only are included once
 
 
+//Testing inputting from date
+// try{
+// 	// $date = new DateTime('2024/01/32');
+// 	// var_dump($date);
+// 	new DateTime('2024/01/32');
+// 	return true;
+// }catch(Exception $e){
+// 	// echo "Bad thing happened: $e";
+// 	return  false;
+// }
+
+
+
 new app\core\App;

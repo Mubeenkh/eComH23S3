@@ -26,8 +26,11 @@ class Service extends \app\core\Controller{
 
 			//Populate the service
 			// /htmlentities() filters out harmful inputs for the system
-			$service->description = htmlentities($_POST['description']);
-			$service->datetime = TimeHelper::DTInput($_POST['datetime']); //now date time should be set at UTC
+				// $service->description = htmlentities($_POST['description']);
+				// $service->datetime = TimeHelper::DTInput($_POST['datetime']); //now date time should be set at UTC
+			$service->description = $_POST['description'];
+			$service->datetime = $_POST['datetime']; // these two value will now be checked and corrected by the setter in the Service Model and Model class
+
 			$service->client_id = $client_id;
 
 			//Invoke the insert method
@@ -58,7 +61,7 @@ class Service extends \app\core\Controller{
 			//place client_id in a variable before deleting the record 
 			$client_id = $service->client_id;
 			$service->delete(); 
-			header('location:/Service/index' . $client_id);
+			header('location:/Service/index/' . $client_id);
 
 		}else{
 			$this->view('Service/delete', $service);
@@ -75,8 +78,8 @@ class Service extends \app\core\Controller{
 		if(isset($_POST['action'])){
 
 			// save the data
-			$service->description = htmlentities($_POST['description']);
-			$service->datetime = TimeHelper::DTInput($_POST['datetime']);
+			$service->description = $_POST['description'];
+			$service->datetime = $_POST['datetime'];
 			//we dont change key values ($client_id) which is a FK
 
 			//save the change to the databse
