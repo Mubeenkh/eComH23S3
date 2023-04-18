@@ -32,6 +32,7 @@ class Service extends \app\core\Controller{
 			$service->datetime = $_POST['datetime']; // these two value will now be checked and corrected by the setter in the Service Model and Model class
 
 			$service->client_id = $client_id;
+			$service->branch_id = $_POST['branch_id'];
 
 			//Invoke the insert method
 			$service->insert();
@@ -43,7 +44,11 @@ class Service extends \app\core\Controller{
 
 			$client = new \app\Models\Client();
 			$client = $client->get($client_id);
-			$this->view('Service/create',$client);
+
+			$branch = new \app\models\Branch();
+			$branches = $branch->getAll();
+
+			$this->view('Service/create',['client'=>$client,'branches'=>$branches]);
 		}
 
 	}
@@ -81,6 +86,8 @@ class Service extends \app\core\Controller{
 			$service->description = $_POST['description'];
 			$service->datetime = $_POST['datetime'];
 			//we dont change key values ($client_id) which is a FK
+			
+			$service->branch_id = $_POST['branch_id'];
 
 			//save the change to the databse
 			$service->update();
@@ -89,7 +96,10 @@ class Service extends \app\core\Controller{
 
 		}else{
 
-			$this->view('Service/edit',$service);
+			$branch = new \app\models\Branch();
+			$branches = $branch->getAll();
+
+			$this->view('Service/edit',['service'=>$service,'branches'=>$branches]);
 
 		}
 	}

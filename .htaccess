@@ -1,5 +1,10 @@
 Options -MultiViews
 
+<Files .env>
+Deny from all
+</Files>
+
+
 RewriteEngine On
 
 RewriteBase /
@@ -9,4 +14,3 @@ RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 RewriteRule ^()$ index.php?url=$1 [QSA,L]
-

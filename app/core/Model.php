@@ -123,6 +123,8 @@ class Model{
 		//this is the method,
 		if(method_exists($this, $method)){
 			$this->$method($value);
+		}else{
+			$this->$name = $value; //adding default behaviour
 		}
 
 		//testing if this methof works
