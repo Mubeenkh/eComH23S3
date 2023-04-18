@@ -1,0 +1,21 @@
+
+If you dont want users to have access to folders or files in your application
+you can deny access in the htaccess file.
+	
+.htaccess affects everything bellow the folder it's in (in sub folders)
+
+Ex:	htdocs
+	|App
+	|   |.htaccess
+	|
+
+Deny access to the htdocs/.env file:
+	In htdocs/.htaccess
+		<Files .env>
+		Deny from all
+		</Files>
+
+Deny access to the app folder:
+	In htdocs/app/.htaccess
+		Write: Deny from all
+
