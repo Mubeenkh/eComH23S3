@@ -1,0 +1,69 @@
+Codeception, Gherkin, and Composer
+Composer allows us to require things into our project
+
+//1. create the feature 
+	==> codecept g:feature Acceptance google
+
+//2. write the gherkin text in the new file
+	GHERKIN:
+	**Codeception is case sensitive 
+	Given 	- the precondition
+  	  And (OPTIONAL)
+	When  	- the action
+  	  And (OPTIONAL)
+	Then	- the expected outcome
+  	  And (OPTIONAL)
+
+
+//3. how to run the test
+codecept run Acceptance google.feature
+
+//4. Assertions is saying what to expect. Need to have assertions in oder to run tests
+//if you want to generate all the missing functions type 
+	==> codecept gherkin:snippet Acceptance
+	//copy the code and paste it in/tests/Support/Helper/AccaptanceTester.php
+
+//5. After pasting, you need to "fix" the code
+	**The Assertion is the "see" and "dont see"
+
+***********************
+TDD: Test-Driven Development
+BDD: Behaviour-Driven Development
+	1) Define the wanted Behaviour
+	2) Code until it satisfies the wanted test
+
+Define an acceptance test with the client so 	
+
+
+******************
+//Every time i git clone, i have to write "composer install" to install the vendor file again
+// because ".gitignore" doesnt push the vendor file into the github, cuz too big
+1. composer install
+2. codecept bootstrap
+
+**************************
+composer require vlucas/phpdotenv
+
+.ENV
+its a file that needs to be hidden from the users. You dont want them to have access to the database
+
+*******************
+
+Internationalisation (I18n) and Localisation (L10n)
+
+Localisation : The part where you addapt to the local "area" , so language, currency, time,etc
+	LOCALES: its a folder
+	GETTEXT: allows you to load all the locales in the project folder (in the localisation)
+		- views -> calls the gettext. 
+			It will get gettext to output all the language strings
+		 Whatever you are giving in gettext() has to be literals, so should be in '' not " "
+		 _('') -> if you're in php context
+		 <?= _('') ?> if you're outside of php context
+		 Ex: 
+		 echo "my name is $name and im dying" ///this one wont work cuz u dont kow what $name is
+		 echo _('my name is ' . $name . _(' and im dying')
+
+Internationalisation : 
+
+
+

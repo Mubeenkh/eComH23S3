@@ -1,0 +1,44 @@
+
+
+after installing poedit.net:
+
+-j => to appends stuff
+
+find app -regex ".*\.php" -exec xgettext -j {} ;  => to find files maybe
+
+type nul > messages.po  => 
+
+type messages.po => to see content of the file
+
+ren messages.po messages.pot => change name
+
+Make the following path: htdocs/locale/en/LC_MESSAGES
+"locale" file is a file for localization
+
+start poedit: run D:\Poedit\Poedit.exe
+
+create and pick a language, then do the translation and save in into LC_MESSAGES
+
+**if you make changes in the application (change word you want to translate)
+Create the following bat file: copy con extract.bat
+It contains: 
+	type nul " messages.po
+	find app -regex ".*\.php" -exec xgettext -j {} ;
+	ren messages.po messages.pot
+This will update the translation
+
+setcookie("lang",$lang, 0, '/');
+	"lang" =>
+	$lang => the name of the language
+	0 => time to live (here its infinite)
+	'/' => the domain of the application( / = root to app), everything in the webpage
+
+$rootlang = preg_split('/_/', $lang);
+	getting the root language, but just whats in front Ex: FR_CA (only getting FR)
+	preg_split will plit it into two
+	is_array turns it into an array
+
+bindtextdomain($lang, "locale") => where the file (FR_CA) can be found
+
+textdomain => selecting the text file
+

@@ -1,0 +1,62 @@
+Validation (Automated)
+- Validator Interface
+- Validator Classes
+- Automation
+- Attributes
+- isValid
+- __call ( magic function, its goal is to ___ when it's not accessible in your scope/(ex:service controller))
+	 ( __call always takes a method name, can also take arguments)
+
+why do we want to validate our data?
+To check if this is real/correct data
+and what will we do with that data
+(the data we put in database)
+Ex: is it a real email?
+
+////////////
+AccessFiltering: 
+	Controller --> __ --> __
+	would prevent the request from making its way to the controller by filtering it first
+
+Validation:
+	Model Class = controller actions --> Insert --> Database
+
+	You want to prevent this from happening when the data being sent to the insert is wrong
+	by validating it first. (validate before sending to database)
+	Model Class = controller actions -- validation (Model::__call) -(if good)-> Insert --> Database
+					       	       		       -(if bad) -> X
+	validation will be done using :#[\app\validators\...]
+
+Goal:
+	//stop this from happening when wrong data
+	Controller Service	Model
+	Service::insert ----> Protected Service::insert
+	
+	//you want this
+	Service::insert ----> Validation ----> Protected Service::insert
+
+/////////////////
+__set :  validation to make sure to call something that doesnt exist
+	dont want null values
+
+__get : when outputting the protected values, you want it to get it
+////////////
+htmlentities() avoids crosss sight scripting
+	XSS: cross sight scripting
+		its when you take javascript and put it into the input
+		which will mess up your code/website 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
