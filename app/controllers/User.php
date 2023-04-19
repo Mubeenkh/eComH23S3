@@ -22,7 +22,17 @@ class User extends \app\core\Controller{
 					//Need to have session_start(); in init.php or else nothing stores
 					//Stores the user_id in the database 
 					$_SESSION['user_id'] = $user->user_id;  
-					header('location:/User/profile');
+					$_SESSION['username'] = $user->username;
+					$_SESSION['secret_key'] = $user->secret_key;
+
+					if(!$user->secret_key){
+						header('location:/User/profile?error=Account not safe, please make your dam 2-factor Authentication');
+					}
+					else{
+						header('location:/User/verify2fa');
+					}
+
+					
 				}else{
 					header('location:/User/index?error=Bad username/password combination');
 				}
@@ -87,6 +97,52 @@ class User extends \app\core\Controller{
 	#[\app\filters\Login]
 	public function somethingSecret(){
 		echo "If you see this, you are logged in";
+	}
+
+	public function makeQRCode()
+	{
+		$data = $_GET['data'];
+		\QRcode::png($data);
+	}
+
+	#[\app\filters\Login]
+	public function setup2fa()
+	{
+
+		if(isset($_POST['action'])){
+
+			$currentcode = $_POST['currentCode'];
+			if(\app\core\TokenAuth6238::verify($_SESSION['secret_key'],$currentcode)){
+
+				$user = new \app\Models\User();
+				$user->user_id = $_SESSION['user_id'];
+				$user->secret_key = $_SESSION['secret_key'];
+				$user->update2fa();
+				header('location:/User/profile?success=Authentication works');
+			}else{
+				header('location:/User/setup2fa?error=token not verified!');//reload
+			}
+
+		}else{
+			$secretkey = \app\core\TokenAuth6238::generateRandomClue();
+			$_SESSION['secret_key'] = $secretkey;
+			$url = \app\core\TokenAuth6238::getLocalCodeUrl(
+				$_SESSION['username'],
+				// $_SESSION['user_id'],
+				'Awesome.com',
+				$secretkey,
+				'Awesome App'      
+			);
+			// $user = \app\Models\
+			$this->view('User/twofasetup', $url);
+		}
+
+	}
+
+	#[\app\filters\Login]
+	public function verify2fa()
+	{
+		$this->view('User/verify2fa');
 	}
 
 	

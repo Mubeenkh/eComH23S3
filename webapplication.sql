@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2023 at 05:35 PM
+-- Generation Time: Apr 19, 2023 at 07:24 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -22,6 +22,30 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `webapplication` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `webapplication`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch`
+--
+
+DROP TABLE IF EXISTS `branch`;
+CREATE TABLE `branch` (
+  `branch_id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `street` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `postal` varchar(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `branch`
+--
+
+INSERT INTO `branch` (`branch_id`, `name`, `street`, `city`, `province`, `postal`) VALUES
+(1, 'St-Laurent', '821 Ste-Croix', 'St-Laurent', 'Qc', 'H4L 4B3'),
+(2, 'Laval', '123 Laval', 'Laval', 'Qc', 'H2T 4B3');
 
 -- --------------------------------------------------------
 
@@ -68,7 +92,8 @@ INSERT INTO `message` (`message_id`, `sender`, `receiver`, `message`, `timestamp
 (3, 12, 11, 'I hope this message thingy works', '2023-02-22 14:00:05'),
 (4, 12, 13, 'testing', '2023-02-22 14:00:49'),
 (5, 12, 13, 'is this working', '2023-02-22 17:02:33'),
-(6, 12, 13, 'We love roblox', '2023-03-28 15:46:27');
+(6, 12, 13, 'We love roblox', '2023-03-28 15:46:27'),
+(7, 13, 12, 'Boba friday', '2023-04-19 16:43:50');
 
 -- --------------------------------------------------------
 
@@ -90,7 +115,8 @@ CREATE TABLE `profile_information` (
 --
 
 INSERT INTO `profile_information` (`user_id`, `first_name`, `last_name`, `middle_name`, `picture`) VALUES
-(12, 'Mubeen', '', 'Khan', '');
+(12, 'Mubeen', '', 'Khan', ''),
+(13, 'Rachelle', 'Badua', 'Jennifer', '13-644019e1cd773.gif');
 
 -- --------------------------------------------------------
 
@@ -103,20 +129,19 @@ CREATE TABLE `service` (
   `service_id` int(11) NOT NULL,
   `description` text NOT NULL,
   `datetime` datetime NOT NULL,
-  `client_id` int(11) NOT NULL
+  `client_id` int(11) NOT NULL,
+  `branch_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `service`
 --
 
-INSERT INTO `service` (`service_id`, `description`, `datetime`, `client_id`) VALUES
-(1, ' BOBA COLA ', '2023-04-12 11:54:00', 1),
-(3, '10:58am', '2023-04-11 14:58:20', 1),
-(4, 'testing validation', '2023-04-12 14:15:00', 1),
-(7, 'rqrqerqre', '0000-00-00 00:00:00', 1),
-(8, '', '2023-04-12 14:41:20', 1),
-(9, 'thrthrh', '2023-04-12 14:51:00', 1);
+INSERT INTO `service` (`service_id`, `description`, `datetime`, `client_id`, `branch_id`) VALUES
+(1, ' BOBA COLA ', '2023-04-12 11:54:00', 1, 1),
+(3, '10:58am', '2023-04-11 14:58:20', 1, 1),
+(13, 'I wanna be ninja', '2023-04-18 15:10:00', 1, 2),
+(14, 'bring chilling', '2023-04-18 15:31:00', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -128,21 +153,28 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
-  `password_hash` varchar(72) NOT NULL
+  `password_hash` varchar(72) NOT NULL,
+  `secret_key` varchar(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
-(11, 'mert', '$2y$10$lt/OSfZrqYVvSLYq.K7MEucPwqUkC61yv8H4N1xTtf1eT1vyRT6Pi'),
-(12, 'Mubeen', '$2y$10$lt/OSfZrqYVvSLYq.K7MEucPwqUkC61yv8H4N1xTtf1eT1vyRT6Pi'),
-(13, 'Rachelle', '$2y$10$ZbWlki6OxXb8.pFTGw2CX.yQNvqGYBz4LQsZ8auGgkwAtrpsKgPHS');
+INSERT INTO `user` (`user_id`, `username`, `password_hash`, `secret_key`) VALUES
+(11, 'mert', '$2y$10$lt/OSfZrqYVvSLYq.K7MEucPwqUkC61yv8H4N1xTtf1eT1vyRT6Pi', ''),
+(12, 'Mubeen', '$2y$10$ZbWlki6OxXb8.pFTGw2CX.yQNvqGYBz4LQsZ8auGgkwAtrpsKgPHS', 'QSHJF7HDLEM5NUPM'),
+(13, 'Rachelle', '$2y$10$ZbWlki6OxXb8.pFTGw2CX.yQNvqGYBz4LQsZ8auGgkwAtrpsKgPHS', '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `branch`
+--
+ALTER TABLE `branch`
+  ADD PRIMARY KEY (`branch_id`);
 
 --
 -- Indexes for table `client`
@@ -169,7 +201,7 @@ ALTER TABLE `profile_information`
 --
 ALTER TABLE `service`
   ADD PRIMARY KEY (`service_id`),
-  ADD KEY `service_to_client` (`client_id`);
+  ADD KEY `service_to_branch` (`client_id`);
 
 --
 -- Indexes for table `user`
@@ -183,6 +215,12 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `branch`
+--
+ALTER TABLE `branch`
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
@@ -192,13 +230,13 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `message_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `service_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user`

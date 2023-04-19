@@ -1,7 +1,8 @@
 <?php $this->view('shared/header','Register your Account'); ?>
 
 USER PROFILE!! 
-<a href="/Profile/index">See My Profile</a>
+<a href="/Profile/index">See My Profile</a><br><br>
+<a href="/User/setup2fa">2 THING AUTHENTICATION</a>
 
 <h1>Messages</h1>
 
